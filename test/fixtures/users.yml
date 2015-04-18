@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  user_id: 1
   screen_name: MyString
+  location: MyString
 
 two:
+  user_id: 1
   screen_name: MyString
+  location: MyString

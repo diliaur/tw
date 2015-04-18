@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417235305) do
+ActiveRecord::Schema.define(version: 20150418010551) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "content"
@@ -35,10 +35,11 @@ ActiveRecord::Schema.define(version: 20150417235305) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer  "user_id"
     t.string   "screen_name"
+    t.string   "location"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "location"
   end
 
 end
