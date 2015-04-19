@@ -12,7 +12,8 @@ module TalkingToTwitter
   # stream so will try to limit to 100
   # also will create new db objects (Tweet, Tag, User)
   def self.load_tweets_by_tag(tag)
-    result = TCLIENT.search("#{tag} -rt",:lang=>"en",:limit=>10)
+    # no RTs, limit 100 per call
+    result = TCLIENT.search("#{tag} -rt",:lang=>"en").take(100)
     count = 0
     result.each do |r|
       #print "[#{count}] #{r.text} ; TAGS: ["
@@ -59,6 +60,9 @@ module TalkingToTwitter
     end
     puts "==="
   end
+
+  def self.create_user(tweet)
+    # USER MUST BE UNIQUE!
 
   def self.test
     puts "this is a test"
