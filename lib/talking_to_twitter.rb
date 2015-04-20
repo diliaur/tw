@@ -13,7 +13,7 @@ module TalkingToTwitter
   # also will create new db objects (Tweet, Tag, User)
   def self.load_tweets_by_tag(tag)
     # no RTs, limit 100 per call
-    result = TCLIENT.search("#{tag} -rt",:lang=>"en").take(10)
+    result = TCLIENT.search("#{tag} -rt",:lang=>"en").take(100)
     count = 0
     result.each do |r|
       #print "[#{count}] #{r.text} ; TAGS: ["
