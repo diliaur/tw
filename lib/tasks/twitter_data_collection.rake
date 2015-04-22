@@ -9,6 +9,8 @@ namespace :tw do
 		puts "Getting data from twitter for tag #{tag}"
 		TalkingToTwitter.load_tweets_by_tag(tag)
 		puts "Done getting data from twitter."
+
+		# TO ADD: probably want to puts data into a log
 	end
 
 end
