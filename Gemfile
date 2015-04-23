@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.2.0'
 
+gem 'whenever', require: false
+
 gem 'twitter' # no necessary vers I guess...
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
