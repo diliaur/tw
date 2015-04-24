@@ -16,6 +16,9 @@ module TalkingToTwitter
     @@tags_added = 0
 
   def self.load_tweets_by_tag(tag)
+    @@users_added = 0
+    @@tweets_added = 0
+    @@tags_added = 0
     # no RTs, limit 100 per call
     result = TCLIENT.search("#{tag} -rt",:lang=>"en").take(100)
     count = 0
