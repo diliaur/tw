@@ -21,6 +21,6 @@
 
 job_type :rake, "cd :path && bundle exec rake :task"
 
-every '*/1 * * * *' do
+every '*/5 * * * *' do
   rake "tw:get_twitter_data"
 end
