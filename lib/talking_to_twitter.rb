@@ -20,7 +20,7 @@ module TalkingToTwitter
     @@tweets_added = 0
     @@tags_added = 0
     # no RTs, limit 100 per call
-    result = TCLIENT.search("#{tag} -rt",:lang=>"en").take(100)
+    result = TCLIENT.search("#{tag}",:lang=>"en").take(100)
     count = 0
     result.each do |r|
       #print "[#{count}] #{r.text} ; TAGS: ["
@@ -103,7 +103,8 @@ module TalkingToTwitter
                  user_screen_name:user.screen_name,
                  user_id:user.id,
                  tweet_id:tweet.id,
-                 tweet_created_at:tweet.created_at) 
+                 tweet_created_at:tweet.created_at,
+                 is_retweet:tweet.retweet?) 
   end
 
   def self.test

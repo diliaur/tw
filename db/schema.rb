@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424094954) do
+ActiveRecord::Schema.define(version: 20150424212535) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "content"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20150424094954) do
     t.datetime "tweet_created_at"
     t.string   "location"
     t.string   "user_screen_name"
+    t.boolean  "is_retweet"
   end
 
   create_table "users", force: :cascade do |t|
