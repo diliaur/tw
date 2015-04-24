@@ -11,6 +11,10 @@ module TalkingToTwitter
   #loads the tweets, will be enumerable object. not sure if it is a
   # stream so will try to limit to 100
   # also will create new db objects (Tweet, Tag, User)
+    @@users_added = 0
+    @@tweets_added = 0
+    @@tags_added = 0
+
   def self.load_tweets_by_tag(tag)
     # no RTs, limit 100 per call
     result = TCLIENT.search("#{tag} -rt",:lang=>"en").take(100)
@@ -28,6 +32,7 @@ module TalkingToTwitter
       new_tweet = self.create_tweet(new_user,r,hashtags)
 
       if new_tweet.valid?
+        @@tweets_added += 1
         puts "tweet valid, storing Tags"
         #puts "#{new_tweet.tags}"
         if new_tweet.tags != nil && new_tweet.tags != ""
@@ -35,12 +40,17 @@ module TalkingToTwitter
           self.transform_hashtags(new_tweet) #do the modxzzzz
         end
       else
-        puts "ERROR: tweet not stored"
+        puts "ERROR: tweet not stored, may already exist"
       end
 
       puts "---"
     end
+    result.each do |r|
+      puts "#{r.id}: #{r.text}\n"
+      
+    end
     puts "number of tweets processed: #{count}"
+    puts "users_added: #{@@users_added}, tweets added: #{@@tweets_added}, tags added: #{@@tags_added}"
   end
 
   # create tag objects from string list contained in each Internal Tweet
@@ -70,6 +80,7 @@ module TalkingToTwitter
     new_user = User.find_by(screen_name: sn)
     if new_user == nil
       new_user = User.create(screen_name: sn)
+      @@users_added += 1
     end
     return new_user
   end
@@ -78,15 +89,17 @@ module TalkingToTwitter
   # param user - an internal object, not a Twitter object
   # param tweet - a Twitter object, not an internal object
   # param hashtags - a CSV string of hashtags from original read of tweet
+  # result should be newly created tweet
   def self.create_tweet(user,tweet,hashtags=nil)
     #puts user.screen_name
     #puts user.id
     #puts tweet.created_at
+
     Tweet.create(content:tweet.text,
                  tags:hashtags,
                  user_screen_name:user.screen_name,
                  user_id:user.id,
-                 #tweet_id:r.id, #may need :limit or something, big number
+                 tweet_id:tweet.id,
                  tweet_created_at:tweet.created_at) 
   end
 

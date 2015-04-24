@@ -6,4 +6,11 @@ class Tag < ActiveRecord::Base
 	validates :parent_created_at, presence: true
 	validates :parent_tweet_id, presence: true
 	validates :parent_user_id, presence: true
+
+	# how many users have used a tag
+	def self.users_per_tag (tag)
+		#find all Tags with content '#tag'
+		#iterate thru each, collecting users
+		
+	end
 end

@@ -5,6 +5,7 @@ class Tweet < ActiveRecord::Base
 	validates :content, presence: true
 	validates :user_id, presence: true
 	validates :tweet_created_at, presence: true
+	validates :tweet_id, presence: true, uniqueness: true
 	
 	# query being tags
 	def self.get_tweets_by_query(query = "")
@@ -18,6 +19,10 @@ class Tweet < ActiveRecord::Base
 
 	# instance methods
 	def create_from_read(tweet_obj) # do I need this?
+	end
+
+	def self.get_by_user(user)
+		return Tweet.where(user_id: user).find_each
 	end
 
 end
