@@ -104,7 +104,8 @@ module TalkingToTwitter
                  user_id:user.id,
                  tweet_id:tweet.id,
                  tweet_created_at:tweet.created_at,
-                 is_retweet:tweet.retweet?) 
+                 is_retweet:tweet.retweet?,
+                 retweet_count:tweet.retweet_count) 
   end
 
   def self.test
