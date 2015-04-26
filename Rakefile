@@ -2,5 +2,5 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
-require './config/initializers/twit.rb'
+require '../config/initializers/twit.rb'
 Rails.application.load_tasks
