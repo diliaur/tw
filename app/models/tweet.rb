@@ -17,6 +17,11 @@ class Tweet < ActiveRecord::Base
 		this.is_retweet
 	end
 
+	# method: return tweets that are retweets
+	# method: return tweets that are not retweets
+
+	
+
 	# query being tags
 	def self.get_tweets_by_query(query = "")
 	end
