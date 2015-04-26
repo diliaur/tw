@@ -66,8 +66,10 @@ module TalkingToTwitter
         new_tag = Tag.create(content:t,
                 parent_created_at:tweet.tweet_created_at,
                 parent_tweet_id:tweet.id,
-                parent_user_id:tweet.user_id)
+                parent_user_id:tweet.user_id,
+                is_agg:false) # <--initially not aggregated
         #puts new_tag.content
+        @@tags_added+=1
       end
     end
     #puts "==="

@@ -7,6 +7,10 @@ module TagAggregation
 	#   so need to periodically empty all and recount? seems ridiculous...
 	# use hash map?
 	# need some way to check if that PARTICULAR TAG has already been counted.
+	# -- added is_agg flag (true/false), false if yet unaggregated, true if counted in aggregation
+
+	# eventually want to run as rake task right after new tweets are added,
+	# so aggregations are updated "in real time"
 	def self.update_tag_counts
 		#puts Tag.all.first.content #ok so I CAN use models in other dirs
 		Tag.all.each do |t|
