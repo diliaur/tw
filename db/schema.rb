@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150425005208) do
+ActiveRecord::Schema.define(version: 20150426004453) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "content"
@@ -27,14 +27,17 @@ ActiveRecord::Schema.define(version: 20150425005208) do
     t.text     "content"
     t.string   "tags"
     t.integer  "user_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "tweet_id",         limit: 8
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "tweet_id",                limit: 8
     t.datetime "tweet_created_at"
     t.string   "location"
     t.string   "user_screen_name"
     t.boolean  "is_retweet"
     t.integer  "retweet_count"
+    t.string   "in_reply_to_screen_name"
+    t.integer  "favorite_count"
+    t.boolean  "is_reply"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,6 +46,16 @@ ActiveRecord::Schema.define(version: 20150425005208) do
     t.string   "location"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "utags", force: :cascade do |t|
+    t.integer  "count"
+    t.integer  "rt_count"
+    t.integer  "fav_count"
+    t.datetime "first_mention"
+    t.datetime "last_mention"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  count: 1
+  rt_count: 1
+  fav_count: 1
+  first_mention: 2015-04-25 14:44:53
+  last_mention: 2015-04-25 14:44:53
+
+two:
+  count: 1
+  rt_count: 1
+  fav_count: 1
+  first_mention: 2015-04-25 14:44:53
+  last_mention: 2015-04-25 14:44:53

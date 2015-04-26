@@ -7,6 +7,16 @@ class Tweet < ActiveRecord::Base
 	validates :tweet_created_at, presence: true
 	validates :tweet_id, presence: true, uniqueness: true
 	
+
+	# is this too much? seriously
+	def is_reply?
+		this.is_reply
+	end
+
+	def is_retweet?
+		this.is_retweet
+	end
+
 	# query being tags
 	def self.get_tweets_by_query(query = "")
 	end
@@ -15,14 +25,6 @@ class Tweet < ActiveRecord::Base
 	end
 
 	def self.get_tweets_by_query_and_date_range() #holy shit
-	end
-
-	# instance methods
-	def create_from_read(tweet_obj) # do I need this?
-	end
-
-	def self.get_by_user(user)
-		return Tweet.where(user_id: user).find_each
 	end
 
 end

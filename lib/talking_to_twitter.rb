@@ -97,19 +97,21 @@ module TalkingToTwitter
     #puts user.screen_name
     #puts user.id
     #puts tweet.created_at
-
-    Tweet.create(content:tweet.text,
+    new_tweet = Tweet.create(content:tweet.text,
                  tags:hashtags,
                  user_screen_name:user.screen_name,
                  user_id:user.id,
                  tweet_id:tweet.id,
                  tweet_created_at:tweet.created_at,
                  is_retweet:tweet.retweet?,
-                 retweet_count:tweet.retweet_count) 
-  end
-
-  def self.test
-    puts "this is a test"
+                 retweet_count:tweet.retweet_count,
+                 favorite_count:tweet.favorite_count) 
+    if tweet.reply?
+      new_tweet.is_reply = true
+      new_tweet.in_reply_to_screen_name = tweet.in_reply_to_screen_name
+      new_tweet.save
+    end
+    return new_tweet
   end
 
 end
