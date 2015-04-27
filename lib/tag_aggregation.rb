@@ -1,16 +1,16 @@
 module TagAggregation
 
 	# count all tags and store unique 
-	# if not unique update count(s) as well as other info
-	# start from ground up? or if have Tag passed in, can simply add count... 
-	#   but don't want to overcount. if anytime tag is passed in, it will update...
-	#   so need to periodically empty all and recount? seems ridiculous...
-	# use hash map?
-	# need some way to check if that PARTICULAR TAG has already been counted.
-	# -- added is_agg flag (true/false), false if yet unaggregated, true if counted in aggregation
+	# if not unique update rt_count, fav_count, and last_mention datetime
 
-	# eventually want to run as rake task right after new tweets are added,
-	# so aggregations are updated "in real time"
+	# Initial run is the worst, especially when have accumulated a large
+	# amount of tags. Best to run this early and often.
+
+	# TODO: rake task to run this either in conjunction with the tweet read-in or
+	# some short time interval, like 10-15 min. Need to decide if want more real-time;
+	# this would probably be no problem since it's not very computationally intensive
+	# when run often.
+	
 	def self.update_tag_counts
 		#puts Tag.all.first.content #ok so I CAN use models in other dirs
 		unaggregated = Tag.where(is_agg:false)
