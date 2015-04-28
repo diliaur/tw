@@ -32,4 +32,11 @@ class Tweet < ActiveRecord::Base
 	def self.get_tweets_by_query_and_date_range() #holy shit
 	end
 
+	def self.return_all_asc_by_creation
+		result = self.order(created_at: :asc)
+		result.all.each do |r|
+			puts "#{r.tweet_id} : #{r.content} @ #{r.created_at}"
+		end
+		return ""
+	end
 end

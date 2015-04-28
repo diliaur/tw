@@ -21,4 +21,19 @@ class Tag < ActiveRecord::Base
 	def self.all_unaggregated
 		return self.where(is_agg:false)
 	end
+
+	def self.return_all
+		self.all.each do |u|
+			puts "#{u.content} -- "
+		end
+		return ""
+	end
+
+	def self.return_all_asc_by_creation
+		result = self.order(created_at: :asc)
+		result.all.each do |r|
+			print "#{r.content} @ #{r.created_at} -- "
+		end
+		return ""
+	end
 end

@@ -8,7 +8,7 @@ class Utag < ActiveRecord::Base
 
 
 	def self.return_all
-		Utag.all.each do |u|
+		self.all.each do |u|
 			puts "#{u.content} (C:#{u.count},R:#{u.rt_count},F:#{u.fav_count}) -- "
 		end
 		return ""
