@@ -3,9 +3,30 @@ class Utag < ActiveRecord::Base
 	validates :content, presence:true, uniqueness:true
 
 	def popularity_score
-		numerator = (self.count + (self.rt_count * self.fav_count))
+		# test for zero values, which mess up calculations
+		self.rt_count == 0 ? rt = 1 : rt = self.rt_count
+		self.fav_count == 0 ? fv = 1 : fv = self.fav_count
+
+		numerator = (self.count + (rt * fv))
 		denominator = self.last_mention - self.first_mention
+
+		denominator = 1 if denominator == 0 # watch for zero in denominator (BAD!)
+
 		return (numerator/denominator)
+	end
+
+	def self.print_top (num)
+		result = Utag.order(pop_score: :desc).limit(num)
+		result.all.each do |r|
+			puts "#{r.content}: C #{r.count}, R #{r.rt_count}, F #{r.fav_count}, P #{r.pop_score}"
+		end
+	end
+
+	def self.print_all_pop
+		self.all.each do |u|
+			print "#{u.popularity_score},#{u.pop_score} -- "
+		end
+		return ""
 	end
 
 	def self.print_all
