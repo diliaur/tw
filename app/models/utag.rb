@@ -7,8 +7,8 @@ class Utag < ActiveRecord::Base
 		self.rt_count == 0 ? rt = 1 : rt = self.rt_count
 		self.fav_count == 0 ? fv = 1 : fv = self.fav_count
 
-		numerator = (self.count + (rt * fv))
-		denominator = self.last_mention - self.first_mention
+		numerator = count + (fv * rt)
+		denominator = (self.last_mention - self.first_mention) #to minutes
 
 		denominator = 1 if denominator == 0 # watch for zero in denominator (BAD!)
 
