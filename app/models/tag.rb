@@ -22,7 +22,7 @@ class Tag < ActiveRecord::Base
 		return self.where(is_agg:false)
 	end
 
-	def self.return_all
+	def self.print_all
 		self.all.each do |u|
 			puts "#{u.content} -- "
 		end

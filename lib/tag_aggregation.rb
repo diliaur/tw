@@ -58,11 +58,26 @@ module TagAggregation
                     extant_utag.update(fav_count:new_fav_count)
                     # update last mention datetime (parent.tweet_created_at)
                     extant_utag.update(last_mention:parent.tweet_created_at)
+
+                    score = utag.popularity_score #new calc
+                    extant_utag.update(pop_score: score)
                 end
                 u.update(is_agg: true) # update Tag is_agg flag (wow) --> true means processed
+                print "."
             end
         end
         puts "processed #{count} new Tags and added #{new_utag_count} new Utags, out of total #{total_count} examined (some may be blank, or unrecognized characters or images)"
     end
 
+    def self.update_pop_scores
+        Utag.all.each do |u|
+            score = u.popularity_score
+            u.update(pop_score: score)
+        end
+    end
+
+    def self.update_pop_score(utag)
+        score = utag.popularity_score
+        u.update(pop_score: score)
+    end
 end

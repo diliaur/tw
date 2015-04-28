@@ -1,4 +1,6 @@
 require './lib/talking_to_twitter.rb'
+require './lib/tag_aggregation.rb'
+
 namespace :tw do
 
 	# automatically get and save tweets, tags, users, using
