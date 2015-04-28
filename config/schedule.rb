@@ -24,3 +24,7 @@ job_type :rake, "cd :path && bundle exec rake :task"
 every '*/5 * * * *' do
   rake "tw:get_twitter_data"
 end
+
+every '*/5 * * * *' do
+  rake "tw:update_utag_counts"
+end

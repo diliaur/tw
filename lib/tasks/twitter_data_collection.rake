@@ -14,4 +14,8 @@ namespace :tw do
 		# TO ADD: probably want to puts data into a log
 	end
 
+	desc "Updates counts on Utags (unique tags)"
+	task update_utag_counts: :environment do
+		TagAggregation.update_tag_counts
+	end
 end

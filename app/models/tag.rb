@@ -13,4 +13,12 @@ class Tag < ActiveRecord::Base
 		#iterate thru each, collecting users
 		
 	end
+
+	def self.all_aggregated
+		return self.where(is_agg:true)
+	end
+
+	def self.all_unaggregated
+		return self.where(is_agg:false)
+	end
 end

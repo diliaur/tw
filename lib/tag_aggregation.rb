@@ -6,18 +6,24 @@ module TagAggregation
 	# Initial run is the worst, especially when have accumulated a large
 	# amount of tags. Best to run this early and often.
 
+	# Handles blank, unrecognized, nil, etc. Tags which may have been stored
+
 	# TODO: rake task to run this either in conjunction with the tweet read-in or
 	# some short time interval, like 10-15 min. Need to decide if want more real-time;
 	# this would probably be no problem since it's not very computationally intensive
 	# when run often.
-	
+
 	def self.update_tag_counts
 		#puts Tag.all.first.content #ok so I CAN use models in other dirs
+		count = 0
+		new_utag_count = 0
+		total_count = 0
 		unaggregated = Tag.where(is_agg:false)
 
 		unaggregated.each do |u|
 			#puts "+++++++++++"
 			u_content = u.content.downcase! #content of tag
+			total_count +=1
 			if !u_content.blank? #checks for empties and nils
 				#puts u_content
 				parent = Tweet.find_by(id:u.parent_tweet_id) #parent tweet
@@ -28,7 +34,10 @@ module TagAggregation
 									   fav_count:parent.favorite_count,
 									   first_mention:parent.tweet_created_at,
 									   last_mention: parent.tweet_created_at) #for first recorded mention. later will update last_mention 
+				count+=1
+				new_utag_count+=1
 				if !new_utag.id.nil? == false#if utag exists already
+					new_utag_count-=1 #if already exists, isn't a NEW utag
 					#dredge up utag
 					#puts "------------------"
 					#puts new_utag.content
@@ -49,9 +58,10 @@ module TagAggregation
 					# update last mention datetime (parent.tweet_created_at)
 					extant_utag.update(last_mention:parent.tweet_created_at)
 				end
-				u.is_agg = true # update Tag is_agg flag (wow) --> true means processed
+				u.update(is_agg: true) # update Tag is_agg flag (wow) --> true means processed
 			end
 		end
+		puts "processed #{count} new Tags and added #{new_utag_count} new Utags, out of total #{total_count} examined (some may be blank, or unrecognized characters or images)"
 	end
 
 end
