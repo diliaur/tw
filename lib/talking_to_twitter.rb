@@ -135,6 +135,13 @@ module TalkingToTwitter
   # BUT I CAN"T HELP IT
   # NAH IS JUS DAMP
   def self.process_user_mentions_tweet_object(tweet)
+    begin
+      tw = TCLIENT.status(tweet.tweet_id)
+      # add progress, counter
+    rescue
+      puts "tweet not found" #could be it was deleted... not sure if precision loss is culprit
+      # add counter
+    end
   end
 
 end
