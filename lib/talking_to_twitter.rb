@@ -116,4 +116,25 @@ module TalkingToTwitter
     return new_tweet
   end
 
+  #takes a Tweet (twitter obj), grabs the user mentions off IF there are any
+  # and returns them as a STRING to be stored in the Tweet model
+  # if there are dupe user mentions it will pull them............ should handle this?
+  # ok, handled it by using String .include? method check --> can remove later if decide
+  # want to track multiple mentions, but probably don't for these two projects
+  def self.process_user_mentions_tweet_twitter(tweet)
+    um = ""
+    tweet.user_mentions.each do |u|
+      #usn = u.screen_name
+      um += "#{u.screen_name}," if !um.include?(u.screen_name)
+    end
+    um.chomp!(",") if um.last == ","
+    um
+  end
+
+  # nOT DRY ? ? ?
+  # BUT I CAN"T HELP IT
+  # NAH IS JUS DAMP
+  def self.process_user_mentions_tweet_object(tweet)
+  end
+
 end
