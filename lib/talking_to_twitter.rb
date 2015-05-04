@@ -113,6 +113,10 @@ module TalkingToTwitter
       new_tweet.in_reply_to_screen_name = tweet.in_reply_to_screen_name
       new_tweet.save
     end
+    if tweet.user_mentions?
+      new_tweet.user_mentions = TalkingToTwitter.process_user_mentions_tweet_twitter(tweet)
+      new_tweet.save
+    end
     return new_tweet
   end
 
@@ -144,8 +148,9 @@ module TalkingToTwitter
       print "."
       found += 0
     rescue
-      puts "tweet not found, internal id #{tweet.id}, tw id #{tweet.tweet_id}" #could be it was deleted... not sure if precision loss is culprit
-      # add counter
+      puts "tweet not found, internal id #{tweet.id}, tw id #{tweet.tweet_id}" 
+      # ^could be it was deleted... not sure if precision loss is culprit
+      #    could also be rate limit, after certain point.
       found -= 1
       notfound += 1
     end
