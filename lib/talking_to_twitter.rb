@@ -131,6 +131,8 @@ module TalkingToTwitter
     um
   end
 
+# --------------- IGNORE BELOW HERE ----------------------------------------- #
+
   # can't do this (cycle through current db), rate limit will be exceeded. 
   # need to do as they come in.
   def self.process_user_mentions_tweet_object(tweet)
@@ -162,5 +164,7 @@ module TalkingToTwitter
     end
     puts "processed #{count + notfound}, found #{count}; #{notfound} missing"
   end
+
+# ----------------- IGNORE ABOVE HERE --------------------------------------- #
 
 end
