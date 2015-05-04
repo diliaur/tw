@@ -131,17 +131,36 @@ module TalkingToTwitter
     um
   end
 
-  # nOT DRY ? ? ?
-  # BUT I CAN"T HELP IT
-  # NAH IS JUS DAMP
+  # can't do this (cycle through current db), rate limit will be exceeded. 
+  # need to do as they come in.
   def self.process_user_mentions_tweet_object(tweet)
+    notfound = 0
+    found = 0
     begin
       tw = TCLIENT.status(tweet.tweet_id)
       # add progress, counter
+      print "."
+      found += 0
     rescue
-      puts "tweet not found" #could be it was deleted... not sure if precision loss is culprit
+      puts "tweet not found, internal id #{tweet.id}, tw id #{tweet.tweet_id}" #could be it was deleted... not sure if precision loss is culprit
       # add counter
+      found -= 1
+      notfound += 1
     end
+    return [found,notfound]
+  end
+
+  # can't do this (cycle through current db), rate limit will be exceeded. 
+  # need to do as they come in.
+  def self.process_user_mentions_all_tweet_objects
+    notfound = 0
+    found = 0
+    Tweet.all.each do |t|
+      countarray = TalkingToTwitter.process_user_mentions_tweet_object(t)
+      found = countarray[0]
+      notfound = countarray[1]
+    end
+    puts "processed #{count + notfound}, found #{count}; #{notfound} missing"
   end
 
 end
