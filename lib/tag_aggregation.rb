@@ -69,16 +69,5 @@ module TagAggregation
         puts "processed #{count} new Tags and added #{new_utag_count} new Utags, out of total #{total_count} examined (some may be blank, or unrecognized characters or images)"
     end
 
-    def self.update_pop_scores
-        Utag.all.each do |u|
-            score = u.popularity_score #this works here
-            print "#{u.pop_score}>#{score} -- "
-            u.update(pop_score: score)
-        end
-    end
-
-    def self.update_pop_score(utag)
-        score = utag.popularity_score # but not here ....
-        utag.update(pop_score: score)
-    end
+    # moved popularity score updaters to Utag model
 end

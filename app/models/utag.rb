@@ -2,13 +2,14 @@ class Utag < ActiveRecord::Base
 
 	validates :content, presence:true, uniqueness:true
 
-	def popularity_score
+	def popularity_score #CURRENT popularity score, may have changed from what's stored in db
 		# test for zero values, which mess up calculations
 		self.rt_count == 0 ? rt = 1 : rt = self.rt_count
 		self.fav_count == 0 ? fv = 1 : fv = self.fav_count
 
-		numerator = count + (fv * rt)
-		denominator = (self.last_mention - self.first_mention) #to minutes
+		#numerator = count/1000 * (fv * rt)
+		numerator = count * (fv * rt)
+		denominator = (self.last_mention - self.first_mention) * 1000
 
 		denominator = 1 if denominator == 0 # watch for zero in denominator (BAD!)
 
@@ -44,5 +45,20 @@ class Utag < ActiveRecord::Base
 		return ""
 	end
 
+	# this will update ALL the Utag popularity scores. 
+    # Class version
+    def self.update_pop_scores
+        Utag.all.each do |u|
+            score = u.popularity_score #this works here
+            print "#{u.pop_score}>#{score} -- "
+            u.update(pop_score: score)
+        end
+    end
+
+    #instance version.. check if works
+    def update_pop_score
+        score = utag.popularity_score # but not here ....
+        utag.update(pop_score: score)
+    end
 
 end
