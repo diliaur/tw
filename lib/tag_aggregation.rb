@@ -65,7 +65,7 @@ module TagAggregation
                 print "."
             end
         end
-        TagAggregation.update_pop_scores # need to do for all every time until figure out instance methods
+        #Utag.update_pop_scores # need to do for all every time until figure out instance methods
         puts "processed #{count} new Tags and added #{new_utag_count} new Utags, out of total #{total_count} examined (some may be blank, or unrecognized characters or images)"
     end
 

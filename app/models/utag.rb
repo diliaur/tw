@@ -8,8 +8,9 @@ class Utag < ActiveRecord::Base
 		self.fav_count == 0 ? fv = 1 : fv = self.fav_count
 
 		#numerator = count/1000 * (fv * rt)
-		numerator = count * (fv * rt)
-		denominator = (self.last_mention - self.first_mention) * 1000
+		# conditionally use fv and rt only if count> threshold??
+		count > 10 ? numerator = count * (fv * rt) : numerator = count
+		denominator = (self.last_mention - self.first_mention)
 
 		denominator = 1 if denominator == 0 # watch for zero in denominator (BAD!)
 
