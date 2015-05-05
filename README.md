@@ -8,4 +8,4 @@ Twitter-based data collection
 
 ####Currently
 * Hard-coded to #Ferguson
-* This value can be changed in /lib/tasks/twitter_data_collection.rake. In task get_twitter_data, change variable ``tag`` from "#ferguson" to desired tag; I suggest you not delete the ``#``
+* This value can be changed in /lib/tasks/twitter_data_collection.rake. In task get_twitter_data, change variable ``tag`` from ``"#ferguson"`` to desired tag; I suggest you not delete the ``#``
