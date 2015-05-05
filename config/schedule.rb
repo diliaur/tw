@@ -28,3 +28,7 @@ end
 every '*/5 * * * *' do
   rake "tw:update_utag_counts"
 end
+
+every '*/15 * * * *' do
+  rake "internal:update_pop_scores"
+end

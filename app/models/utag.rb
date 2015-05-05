@@ -51,9 +51,11 @@ class Utag < ActiveRecord::Base
     def self.update_pop_scores
         Utag.all.each do |u|
             score = u.popularity_score #this works here
-            print "#{u.pop_score}>#{score} -- "
+            #print "#{u.pop_score}>#{score} -- "
+            print "."
             u.update(pop_score: score)
         end
+        puts ""
     end
 
     #instance version.. check if works

@@ -20,4 +20,15 @@ namespace :tw do
 	task update_utag_counts: :environment do
 		TagAggregation.update_tag_counts
 	end
+
+end
+
+namespace :internal do
+
+	desc "Update popularity scores on each Utag (every 15 min)"
+	task update_pop_scores: :environment do
+		Utag.update_pop_scores
+		Utag.print_top 10
+	end
+
 end
