@@ -29,7 +29,7 @@ class Tweet < ActiveRecord::Base
 	def self.get_tweets_by_date_range(date="")
 	end
 
-	def self.get_tweets_by_query_and_date_range() #holy shit
+	def self.get_tweets_by_query_and_date_range()
 	end
 
 	def self.print_all_asc_by_creation
@@ -39,4 +39,38 @@ class Tweet < ActiveRecord::Base
 		end
 		return ""
 	end
+
+	# transform user_mentions into VNA format to be read into
+	# gephi or other 
+	# may not pay attention to weights eg multiple cnxns between nodes...
+	def self.user_mentions_to_vna
+		# open a file to write to?
+
+		file = File.open("ferguson_discussion.vna","w") do |f|
+			# write first line
+			f.write("*Node data\n")
+			f.write("ID tags\n")
+			# grab all tweets that have user_mentions
+			tweets = Tweet.where("user_mentions is not null")
+			# for each tweet
+			edges = ""
+			tweets.all.each do |t|
+				# user_screen_name is the originating node
+				# add hash tags (string?) as attribute onto origin node
+				f.write "#{t.user_screen_name} #{t.tags}\n"
+				# grab user_mentions field
+				# for each user in user_mentions
+				t.user_mentions.split(",").each do |um|
+					# add a link from user_screen_name to the user
+					#f.write("#{t.user_screen_name} #{um}\n")
+					edges += "#{t.user_screen_name} #{um}\n"
+				end
+			end
+			f.write("*Tie data\n")
+			f.write(edges)
+
+			# might have to separate up edge data and write it after all processing is finished
+		end
+	end
+
 end

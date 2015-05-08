@@ -58,7 +58,8 @@ module TagAggregation
                     extant_utag.update(fav_count:new_fav_count)
                     # update last mention datetime (parent.tweet_created_at)
                     extant_utag.update(last_mention:parent.tweet_created_at)
-
+                    #note : do i need to do all these updates separately or can I do them at once?
+                    
                     #TagAggregation.update_pop_score(extant_utag)
                 end
                 u.update(is_agg: true) # update Tag is_agg flag (wow) --> true means processed
