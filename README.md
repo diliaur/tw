@@ -1,6 +1,8 @@
 # Tag Recommendation
 Course project for ICS 624 at UH Manoa, Spring 2015
 
+This project is archived and not actively maintained.
+
 Twitter-based data collection
 
 ## Goal
